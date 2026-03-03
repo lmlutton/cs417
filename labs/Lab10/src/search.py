@@ -27,7 +27,7 @@ def sequential_search(a_list, target):
     Returns:
         True if target is found, False otherwise.
     """
-    return target in a_list # returns True if target is found
+    return target in a_list # returns True if target is found, false if it is not found
 
 
 # ── TODO 2: Binary Search ────────────────────────────────────────
@@ -56,8 +56,24 @@ def binary_search(a_list, target):
     Returns:
         True if target is found, False otherwise.
     """
-    pass  # TODO: implement this
+    first: int = 0
+    last: int = len(a_list) - 1
+    # print(f"list={a_list}")
+    # print(f"target={target}")
 
+    while first <= last:
+        mid: int = (first + last) // 2
+        # print(f"first={first}, last={last}, mid={mid}, bucket={a_list[mid]}")
+        if a_list[mid] == target:
+            return True
+        elif target < a_list[mid]:
+            last = mid - 1
+            continue
+        elif target > a_list[mid]:
+            first = mid + 1
+            continue
+
+    return False
 
 # ── TODO 3: Counted Versions ─────────────────────────────────────
 

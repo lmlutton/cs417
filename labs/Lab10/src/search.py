@@ -27,7 +27,12 @@ def sequential_search(a_list, target):
     Returns:
         True if target is found, False otherwise.
     """
-    return target in a_list # returns True if target is found, false if it is not found
+    # return target in a_list # returns True if target is found, false if it is not found
+    for i in a_list:
+        if i == target:
+            return True
+    
+    return False
 
 
 # ── TODO 2: Binary Search ────────────────────────────────────────
@@ -98,7 +103,15 @@ def sequential_search_counted(a_list, target):
         sequential_search_counted([4, 8, 2, 15, 17], 17)  → (True, 5)
         sequential_search_counted([4, 8, 2, 15, 17], 99)  → (False, 5)
     """
-    pass  # TODO: implement this
+    count: int = 0
+    
+    for i in a_list:
+        count += 1
+        if i == target:
+            return True, count
+    
+    return False, count
+
 
 
 def binary_search_counted(a_list, target):
@@ -121,4 +134,24 @@ def binary_search_counted(a_list, target):
         binary_search_counted([2, 4, 8, 15, 17], 17)  → (True, 3)
         binary_search_counted([2, 4, 8, 15, 17], 99)  → (False, 3)
     """
-    pass  # TODO: implement this
+    first: int = 0
+    last: int = len(a_list) - 1
+    count: int = 0
+
+    # print(f"list={a_list}")
+    # print(f"target={target}")
+
+    while first <= last:
+        count += 1
+        mid: int = (first + last) // 2
+        # print(f"first={first}, last={last}, mid={mid}, bucket={a_list[mid]}")
+        if a_list[mid] == target:
+            return True, count
+        elif target < a_list[mid]:
+            last = mid - 1
+            continue
+        elif target > a_list[mid]:
+            first = mid + 1
+            continue
+
+    return False, count

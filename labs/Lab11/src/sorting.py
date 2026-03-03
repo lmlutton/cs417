@@ -74,6 +74,8 @@ def short_bubble_sort(a_list):
             if a_list[j] > a_list[j + 1]:
                 a_list[j], a_list[j +1] = a_list[j + 1], a_list[j]
                 swap_occured = True
+        if not swap_occured:
+            break
 
     return a_list
 
@@ -108,7 +110,19 @@ def insertion_sort(a_list):
     Returns:
         The same list, now sorted in ascending order.
     """
-    pass  # TODO: implement this
+    n: int = len(a_list)
+  
+    for i in range(1, n):
+        current_value = a_list[i]
+        position = i
+
+        while position > 0 and a_list[position - 1] > current_value:
+            a_list[position] = a_list[position - 1]
+            position = position - 1
+        
+        a_list[position] = current_value
+
+    return a_list
 
 
 # ── TODO 4: Counted Versions ────────────────────────────────────

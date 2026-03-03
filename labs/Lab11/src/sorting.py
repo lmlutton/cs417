@@ -118,7 +118,7 @@ def insertion_sort(a_list):
 
         while position > 0 and a_list[position - 1] > current_value:
             a_list[position] = a_list[position - 1]
-            position = position - 1
+            position -= 1
         
         a_list[position] = current_value
 
@@ -149,7 +149,18 @@ def bubble_sort_counted(a_list):
         bubble_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 2)
     """
-    pass  # TODO: implement this
+    n = len(a_list)
+    comparisons = 0
+    data_moves = 0
+
+    for i in range(n - 1):
+        for j in range(n - 1 - i):
+            comparisons += 1
+            if a_list[j] > a_list[j + 1]:
+                data_moves += 1
+                a_list[j], a_list[j +1] = a_list[j + 1], a_list[j]
+
+    return a_list, comparisons, data_moves
 
 
 def insertion_sort_counted(a_list):
@@ -174,4 +185,20 @@ def insertion_sort_counted(a_list):
         insertion_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 4)
     """
-    pass  # TODO: implement this
+    n: int = len(a_list)
+    comparisons = 0
+    data_moves = 0
+  
+    for i in range(1, n):
+        current_value = a_list[i]
+        position = i
+
+        while position > 0 and a_list[position - 1] > current_value:
+            a_list[position] = a_list[position - 1]
+            data_moves += 1
+            position -= 1
+        
+        a_list[position] = current_value
+        data_moves += 1
+
+    return a_list, comparisons, data_moves

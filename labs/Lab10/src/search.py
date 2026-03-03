@@ -27,7 +27,7 @@ def sequential_search(a_list, target):
     Returns:
         True if target is found, False otherwise.
     """
-    pass  # TODO: implement this
+    return target in a_list # returns True if target is found
 
 
 # ── TODO 2: Binary Search ────────────────────────────────────────

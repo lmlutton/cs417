@@ -110,19 +110,28 @@ def insertion_sort(a_list):
     Returns:
         The same list, now sorted in ascending order.
     """
-    n: int = len(a_list)
-  
+    n = len(a_list)
+    
+    # Build the sorted region from left to right
     for i in range(1, n):
+        # Save the current item to be inserted into the sorted region
         current_value = a_list[i]
-        position = i
-
-        while position > 0 and a_list[position - 1] > current_value:
-            a_list[position] = a_list[position - 1]
+        
+        # Start comparing from the previous position
+        position = i - 1
+        
+        # Shift items larger than current_value one position to the right
+        while position >= 0 and a_list[position] > current_value:
+            # Move the larger item to the right
+            a_list[position + 1] = a_list[position]
+            # Move to the previous position
             position -= 1
         
-        a_list[position] = current_value
-
+        # Insert current_value at its correct position
+        a_list[position + 1] = current_value
+    
     return a_list
+    
 
 
 # ── TODO 4: Counted Versions ────────────────────────────────────
@@ -185,20 +194,34 @@ def insertion_sort_counted(a_list):
         insertion_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 4)
     """
-    n: int = len(a_list)
+    n = len(a_list)
     comparisons = 0
     data_moves = 0
   
+    # Build the sorted region from left to right
     for i in range(1, n):
+        # Save the current item to be inserted into the sorted region
         current_value = a_list[i]
-        position = i
-
-        while position > 0 and a_list[position - 1] > current_value:
-            a_list[position] = a_list[position - 1]
-            data_moves += 1
-            position -= 1
         
-        a_list[position] = current_value
-        data_moves += 1
-
+        # Start comparing from the previous position
+        position = i - 1
+        
+        # Shift items larger than current_value one position to the right
+        while position >= 0:
+            # Count the comparison (only when position >= 0)
+            comparisons += 1
+            if a_list[position] > current_value:
+                # Move the larger item to the right
+                a_list[position + 1] = a_list[position]
+                data_moves += 1  # Count the shift
+                # Move to the previous position
+                position -= 1
+            else:
+                # Found the insertion point, stop shifting
+                break
+        
+        # Insert current_value at its correct position
+        a_list[position + 1] = current_value
+        data_moves += 1  # Count the placement of current_value
+    
     return a_list, comparisons, data_moves

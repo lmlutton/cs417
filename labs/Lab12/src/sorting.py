@@ -53,7 +53,27 @@ def _gap_insertion_sort(a_list, start, gap):
         start: The starting index of this sublist.
         gap: The distance between sublist elements.
     """
-    pass  # TODO: implement this
+    n = len(a_list)
+    
+    # Build the sorted region from left to right
+    for i in range(start + gap, n, gap):
+        # Save the current item to be inserted into the sorted region
+        current_value = a_list[i]
+        
+        # Start comparing from the previous position
+        position = i - 1
+        
+        # Shift items larger than current_value one position to the right
+        while position >= 0 and a_list[position] > current_value:
+            # Move the larger item to the right
+            a_list[position + 1] = a_list[position]
+            # Move to the previous position
+            position -= 1
+        
+        # Insert current_value at its correct position
+        a_list[position + 1] = current_value
+    
+    return a_list
 
 
 def shell_sort(a_list):
@@ -118,7 +138,28 @@ def merge_sort(a_list):
     # Initialize: i = 0, j = 0, k = 0
     # Then write the three while loops described above.
 
-    pass  # TODO: replace this with the merge logic
+    i: int = 0  # index for left half
+    j: int = 0  # index for right half
+    k: int = 0  # index for merged list (a_list)
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            a_list[k] = left[i]
+            i += 1
+        else:
+            a_list[k] = right[j]
+            j += 1
+        k += 1
+
+    while i < len(left):
+        a_list[k] = left[i]
+        i += 1
+        k += 1
+
+    while j < len(right):
+        a_list[k] = right[j]
+        j += 1
+        k += 1
 
     return a_list
 
@@ -154,7 +195,26 @@ def _partition(a_list, first, last):
     Returns:
         The index where the pivot ended up (the split point).
     """
-    pass  # TODO: implement this
+   
+    pivot_value = a_list[first]
+    left_mark = first + 1
+    right_mark = last
+    done = False
+
+    while not done:
+        while left_mark <= right_mark and a_list[left_mark] <= pivot_value:
+            left_mark += 1
+
+        while left_mark <= right_mark and a_list[right_mark] >= pivot_value:
+            right_mark -= 1
+
+        if right_mark < left_mark:
+            done = True
+        else:
+            a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
+
+    a_list[first], a_list[right_mark] = a_list[right_mark], a_list[first]
+    return right_mark
 
 
 def _quick_sort_helper(a_list, first, last):
